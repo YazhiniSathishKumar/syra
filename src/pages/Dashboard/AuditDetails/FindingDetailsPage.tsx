@@ -16,6 +16,10 @@ const FindingDetailsPage: React.FC = () => {
         return <Navigate to="/dashboard" replace />;
     }
 
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <DashboardLayout>
             <FindingDetailsContent

@@ -21,8 +21,8 @@ const AuditCard: React.FC<AuditCardProps> = ({
     <motion.div
       onClick={onClick}
       className={`p-4 rounded-xl border transition-all duration-300 cursor-pointer group backdrop-blur-sm ${theme === 'dark'
-          ? 'border-surface-secondary-dark/30 hover:bg-surface-secondary-dark/30 hover:border-secondary-dark/50 shadow-dark-card'
-          : 'border-gray-200 hover:bg-gray-50 hover:border-blue-200'
+        ? 'border-surface-secondary-dark/30 hover:bg-surface-secondary-dark/30 hover:border-secondary-dark/50 shadow-dark-card'
+        : 'border-gray-200 hover:bg-gray-50 hover:border-blue-200'
         }`}
       whileHover={{ scale: 1.01 }}
     >
@@ -30,14 +30,14 @@ const AuditCard: React.FC<AuditCardProps> = ({
         <div className="flex items-center space-x-3">
           <div
             className={`p-2 rounded-lg ${audit.auditType === 'network'
-                ? getColorClasses('info', 'bg') + ' ' + getColorClasses('info', 'text')
-                : audit.auditType === 'web'
-                  ? getColorClasses('success', 'bg') +
-                  ' ' +
-                  getColorClasses('success', 'text')
-                  : getColorClasses('secondary', 'bg') +
-                  ' ' +
-                  getColorClasses('secondary', 'text')
+              ? getColorClasses('info', 'bg') + ' ' + getColorClasses('info', 'text')
+              : audit.auditType === 'web'
+                ? getColorClasses('success', 'bg') +
+                ' ' +
+                getColorClasses('success', 'text')
+                : getColorClasses('secondary', 'bg') +
+                ' ' +
+                getColorClasses('secondary', 'text')
               }`}
           >
             {audit.auditType === 'network' ? (
@@ -50,45 +50,38 @@ const AuditCard: React.FC<AuditCardProps> = ({
           </div>
           <div>
             <h4 className="font-medium">Web Audit</h4>
-            <p
-              className={`text-sm ${theme === 'dark'
-                  ? 'text-text-secondary-dark'
-                  : 'text-text-secondary-light'
-                }`}
-            >
-              {audit.date}
-            </p>
+
           </div>
         </div>
         <div className="flex items-center space-x-2">
           <span
             className={`px-3 py-1 rounded-full text-xs font-medium ${audit.status === 'Completed'
-                ? getColorClasses('success', 'bg') +
+              ? getColorClasses('success', 'bg') +
+              ' ' +
+              getColorClasses('success', 'text')
+              : audit.status === 'In Progress'
+                ? getColorClasses('info', 'bg') +
                 ' ' +
-                getColorClasses('success', 'text')
-                : audit.status === 'In Progress'
-                  ? getColorClasses('info', 'bg') +
-                  ' ' +
-                  getColorClasses('info', 'text')
-                  : getColorClasses('warning', 'bg') +
-                  ' ' +
-                  getColorClasses('warning', 'text')
+                getColorClasses('info', 'text')
+                : getColorClasses('warning', 'bg') +
+                ' ' +
+                getColorClasses('warning', 'text')
               }`}
           >
             {audit.status}
           </span>
           <span
             className={`px-2 py-1 rounded text-xs font-medium ${audit.priority === 'high'
-                ? getColorClasses('error', 'bg') +
+              ? getColorClasses('error', 'bg') +
+              ' ' +
+              getColorClasses('error', 'text')
+              : audit.priority === 'medium'
+                ? getColorClasses('warning', 'bg') +
                 ' ' +
-                getColorClasses('error', 'text')
-                : audit.priority === 'medium'
-                  ? getColorClasses('warning', 'bg') +
-                  ' ' +
-                  getColorClasses('warning', 'text')
-                  : getColorClasses('success', 'bg') +
-                  ' ' +
-                  getColorClasses('success', 'text')
+                getColorClasses('warning', 'text')
+                : getColorClasses('success', 'bg') +
+                ' ' +
+                getColorClasses('success', 'text')
               }`}
           >
             {audit.priority}

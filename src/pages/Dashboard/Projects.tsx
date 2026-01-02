@@ -11,9 +11,10 @@ import {
   MoreVertical,
   Eye,
   Archive,
-  Trash2
+  Trash2,
+  Globe
 } from 'lucide-react';
-import { mockProjects } from '../../data/mockProjects';
+// import { mockProjects } from '../../data/mockProjects';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import Sidebar from '../../components/Dashboard/Sidebar'; // Adjust path if needed
@@ -25,7 +26,25 @@ const Projects: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
-  const [projects] = useState(mockProjects);
+  const [projects] = useState([
+    {
+      id: 'audit-web-001',
+      name: 'Corporate Website Security Audit',
+      client: 'SLN',
+      type: 'web',
+      status: 'completed',
+      date: '2025-12-27',
+      score: 85,
+      icon: Globe,
+      vulnerabilities: {
+        critical: 0,
+        high: 0,
+        medium: 5,
+        low: 5,
+        informational: 0
+      }
+    }
+  ]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);

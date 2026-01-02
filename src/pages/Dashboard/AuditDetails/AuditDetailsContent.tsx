@@ -294,14 +294,14 @@ const AuditDetailsContent: React.FC<AuditDetailsContentProps> = ({ audit }) => {
             <StatCard
               icon={Calendar}
               title="Testing Period"
-              value={formatDateRange(audit.preferredStartDate, audit.completedAt)}
+              value={audit.testingPeriod || formatDateRange(audit.preferredStartDate, audit.completedAt)}
               subtitle={audit.completedAt ? 'Expired 2 weeks ago' : 'Scheduled'}
               colorClass="text-blue-600 bg-blue-50 dark:bg-blue-900/20"
             />
             <StatCard
               icon={FileText}
               title="Report Delivery"
-              value={audit.completedAt ? formatDateRange(audit.completedAt).split(' - ')[0] + ', 2021' : 'Pending'}
+              value={audit.reportDelivery || (audit.completedAt ? formatDateRange(audit.completedAt).split(' - ')[0] + ', 2021' : 'Pending')}
               subtitle={audit.completedAt ? 'Delivered 3 days ago' : 'Estimated: TBD'}
               colorClass="text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20"
             />

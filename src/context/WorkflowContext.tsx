@@ -35,6 +35,8 @@ export interface AuditRequest {
   timeline: TimelineEvent[];
   reportUrl?: string;
   completedAt?: string;
+  testingPeriod?: string;
+  reportDelivery?: string;
 }
 
 export interface Finding {
@@ -140,7 +142,7 @@ In a production environment, these risks collectively increase the likelihood of
 5. Update the Web Server & WAF Rules (Optional but Recommended)
    o Ensure Apache and ModSecurity are updated to align with the PHP upgrade.`,
     status: 'open',
-    foundAt: new Date().toISOString(),
+    foundAt: '2025-12-15T10:00:00.000Z',
     score: 6.5,
     vectorString: 'CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L'
   },
@@ -207,7 +209,7 @@ Once fixed, verify that:
 ● Iframes fail to load the website.
 ● Exploit page displays a browser denial/error.`,
     status: 'open',
-    foundAt: new Date().toISOString(),
+    foundAt: '2025-12-15T10:00:00.000Z',
     score: 6.3,
     vectorString: 'CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:L/A:N'
   },
@@ -241,7 +243,7 @@ As the affected library is widely used across the site, the impact can extend to
 5. Avoid Hosting Outdated Local Copies
    o Replace outdated local JS files with updated versions`,
     status: 'open',
-    foundAt: new Date().toISOString(),
+    foundAt: '2025-12-15T10:00:00.000Z',
     score: 6.1,
     vectorString: 'CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N'
   },
@@ -285,7 +287,7 @@ Attackers can use the form to automate testing of payloads, fuzzing, or enumerat
    o Generate alerts for spikes in submission volume.
    o Create IP blacklists or dynamic blocking rules.`,
     status: 'open',
-    foundAt: new Date().toISOString(),
+    foundAt: '2025-12-15T10:00:00.000Z',
     score: 5.9,
     vectorString: 'CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L'
   },
@@ -330,7 +332,7 @@ Overall, missing security headers weaken the application’s defensive posture a
    o Reduce the risk of misuse of browser APIs.
    o Apply the principle of least privilege to client-side capabilities.`,
     status: 'open',
-    foundAt: new Date().toISOString(),
+    foundAt: '2025-12-15T10:00:00.000Z',
     score: 5.1,
     vectorString: 'CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N'
   },
@@ -525,7 +527,7 @@ export const WorkflowProvider: React.FC<WorkflowProviderProps> = ({ children }) 
 
     if (existingWebIdx !== -1) {
       initialRequests[existingWebIdx].auditType = 'web';
-      initialRequests[existingWebIdx].companyName = 'Web Audit';
+      initialRequests[existingWebIdx].companyName = 'SLN';
       initialRequests[existingWebIdx].vulnerabilities = { critical: 0, high: 0, medium: 5, low: 5, informational: 0, total: 10 };
 
       // Force update findings to ensure detailed text is present
@@ -533,7 +535,7 @@ export const WorkflowProvider: React.FC<WorkflowProviderProps> = ({ children }) 
     } else {
       const defaultAudit: AuditRequest = {
         id: 'audit-web-001',
-        companyName: 'Web Audit',
+        companyName: 'SLN',
         contactName: 'Web Admin',
         contactEmail: 'admin@web.com',
         contactPhone: '+1234567890',
@@ -544,11 +546,13 @@ export const WorkflowProvider: React.FC<WorkflowProviderProps> = ({ children }) 
         methodology: 'OWASP Testing Guide v4.2',
         estimatedDuration: '7 days',
         budget: 'Premium',
-        preferredStartDate: '2025-05-20',
-        completedAt: '2025-06-05',
+        preferredStartDate: '2025-12-11',
+        completedAt: '2025-12-22',
+        testingPeriod: '11–12 & 17–22 Dec 2025',
+        reportDelivery: '2025-12-27',
         additionalRequirements: '',
         status: 'approved',
-        submittedAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+        submittedAt: new Date('2025-12-01').toISOString(),
         progress: 100,
         testingPhase: 'Completed',
         userId: 'user-1',
