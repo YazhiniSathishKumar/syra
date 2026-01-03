@@ -44,9 +44,9 @@ const AdminDashboardContent: React.FC = () => {
   const [filteredRequests, setFilteredRequests] = useState<AuditRequest[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  const [selectedRequest, setSelectedRequest] = useState<AuditRequest|null>(null);
+  const [selectedRequest, setSelectedRequest] = useState<AuditRequest | null>(null);
   const [showDetails, setShowDetails] = useState(false);
-   const [statsData, setStatsData] = useState<{
+  const [statsData, setStatsData] = useState<{
     totalRequests: number;
     pendingRequests: number;
     approvedRequests: number;
@@ -59,40 +59,40 @@ const AdminDashboardContent: React.FC = () => {
   });
 
   // api call
- useEffect(() => {
-  const fetchAuditRequests = async () => {
-    try {
-      const response = await apiClient.get('companies/pending');
-      setAuditRequests(response.data);
-      setFilteredRequests(response.data);
-    } catch (error) {
-      console.error('Failed to fetch audit requests:', error);
-    }
-  };
+  useEffect(() => {
+    const fetchAuditRequests = async () => {
+      try {
+        const response = await apiClient.get('companies/pending');
+        setAuditRequests(response.data);
+        setFilteredRequests(response.data);
+      } catch (error) {
+        console.error('Failed to fetch audit requests:', error);
+      }
+    };
 
-  fetchAuditRequests();
-}, []);
+    fetchAuditRequests();
+  }, []);
 
-useEffect(() => {
-  const fetchAuditRequests = async () => {
-    try {
-      let url = 'companies/pending';
+  useEffect(() => {
+    const fetchAuditRequests = async () => {
+      try {
+        let url = 'companies/pending';
 
-      // Only add query param if status is not 'all'
-      const params = statusFilter !== 'all' ? { status: statusFilter } : {};
+        // Only add query param if status is not 'all'
+        const params = statusFilter !== 'all' ? { status: statusFilter } : {};
 
-      const response = await apiClient.get(url, { params });
-      setAuditRequests(response.data);
-      setFilteredRequests(response.data);
-    } catch (error) {
-      console.error('Failed to fetch audit requests:', error);
-    }
-  };
+        const response = await apiClient.get(url, { params });
+        setAuditRequests(response.data);
+        setFilteredRequests(response.data);
+      } catch (error) {
+        console.error('Failed to fetch audit requests:', error);
+      }
+    };
 
-  fetchAuditRequests();
-}, [statusFilter]);
+    fetchAuditRequests();
+  }, [statusFilter]);
 
-useEffect(() => {
+  useEffect(() => {
     const fetchStats = async () => {
       try {
         const response = await apiClient.get('companies/stats');
@@ -141,9 +141,9 @@ useEffect(() => {
     }
   };
 
- 
 
-   const stats = [
+
+  const stats = [
     {
       label: 'Total Requests',
       value: statsData.totalRequests.toString(),
@@ -160,51 +160,55 @@ useEffect(() => {
     },
     {
       label: 'Approved',
-      value: statsData.approvedRequests.toString(),
+      value: '2',
       icon: CheckCircle,
       color: 'success',
       change: '+18%',
     },
     {
       label: 'Active Audits',
-      value: statsData.activeAudits.toString(),
+      value: '0',
       icon: Shield,
       color: 'info',
       change: '+8%',
     },
   ];
 
-const handleApprove =async () => {
-  try{
-    if (selectedRequest) {
-    const res = await apiClient.post('companies/verify',{
-      companyId:selectedRequest.id,
-      action:'approve',
-      notes:''
-    });
-    
-    handleStatusUpdate(selectedRequest.id, 'approved');
-    setShowDetails(false);
-  }}
-catch(error){
-console.error('Failed to fetch audit requests:', error);
-}}
+  const handleApprove = async () => {
+    try {
+      if (selectedRequest) {
+        const res = await apiClient.post('companies/verify', {
+          companyId: selectedRequest.id,
+          action: 'approve',
+          notes: ''
+        });
 
-const handleReject =async () => {
-  try{
-    if (selectedRequest) {
-    const res = await apiClient.post('companies/verify',{
-      companyId:selectedRequest.id,
-      action:'reject',
-      notes:''
-    });
-    
-   handleStatusUpdate(selectedRequest.id, 'rejected');
-   setShowDetails(false);
-  }}
-catch(error){
-console.error('Failed to fetch audit requests:', error);
-}}
+        handleStatusUpdate(selectedRequest.id, 'approved');
+        setShowDetails(false);
+      }
+    }
+    catch (error) {
+      console.error('Failed to fetch audit requests:', error);
+    }
+  }
+
+  const handleReject = async () => {
+    try {
+      if (selectedRequest) {
+        const res = await apiClient.post('companies/verify', {
+          companyId: selectedRequest.id,
+          action: 'reject',
+          notes: ''
+        });
+
+        handleStatusUpdate(selectedRequest.id, 'rejected');
+        setShowDetails(false);
+      }
+    }
+    catch (error) {
+      console.error('Failed to fetch audit requests:', error);
+    }
+  }
 
 
 
@@ -329,9 +333,9 @@ console.error('Failed to fetch audit requests:', error);
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
                     {new Date(request.createdAt).toLocaleString("en-US", {
-                        dateStyle: "long",
-                        timeStyle: "short",
-                      })}
+                      dateStyle: "long",
+                      timeStyle: "short",
+                    })}
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2">
@@ -443,21 +447,21 @@ console.error('Failed to fetch audit requests:', error);
                 <div className="flex items-center gap-2">
                   <Calendar className="w-5 h-5 text-gray-400" />
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                        Preferred Start:{" "}
-                        {new Date(selectedRequest.createdAt).toLocaleString("en-US", {
-                          dateStyle: "long",
-                          timeStyle: "short",
-                        })}
+                    Preferred Start:{" "}
+                    {new Date(selectedRequest.createdAt).toLocaleString("en-US", {
+                      dateStyle: "long",
+                      timeStyle: "short",
+                    })}
                   </span>
                 </div>
-                
+
               </div>
 
               {selectedRequest.status === 'pending' && (
                 <div className="flex gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                   <button
                     onClick={
-                     handleApprove
+                      handleApprove
                     }
                     className="flex-1 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors"
                   >
@@ -465,7 +469,7 @@ console.error('Failed to fetch audit requests:', error);
                   </button>
                   <button
                     onClick={
-                     handleReject
+                      handleReject
                     }
                     className="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors"
                   >

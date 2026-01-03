@@ -15,9 +15,13 @@ import { Finding } from '../../../context/WorkflowContext';
 interface FindingDetailsContentProps {
     finding: Finding;
     auditName: string;
+    nextFindingId?: string;
+    auditId?: string;
+    severityIndex?: number;
+    severityCount?: number;
 }
 
-const FindingDetailsContent: React.FC<FindingDetailsContentProps> = ({ finding, auditName }) => {
+const FindingDetailsContent: React.FC<FindingDetailsContentProps> = ({ finding, auditName, nextFindingId, auditId, severityIndex, severityCount }) => {
     const navigate = useNavigate();
 
     const getSeverityStyles = (severity: string) => {
@@ -83,7 +87,7 @@ const FindingDetailsContent: React.FC<FindingDetailsContentProps> = ({ finding, 
                         >
                             <div className="flex items-center gap-3">
                                 <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-white dark:bg-gray-900 border ${styles.border} ${styles.text} shadow-sm`}>
-                                    {finding.severity} Severity
+                                    {finding.severity} {severityIndex && severityCount ? `${severityIndex} of ${severityCount}` : 'Severity'}
                                 </span>
                                 <span className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
                                     <div className="w-1 h-1 rounded-full bg-gray-300" />
@@ -226,7 +230,23 @@ const FindingDetailsContent: React.FC<FindingDetailsContentProps> = ({ finding, 
                                     </div>
                                 </div>
                             )}
+
+                            {nextFindingId && auditId && (
+                                <div className="mt-6 pt-6 border-t border-gray-50 dark:border-gray-800">
+                                    <button
+                                        onClick={() => {
+                                            navigate(`/audit/${auditId}/finding/${nextFindingId}`);
+                                            window.scrollTo(0, 0);
+                                        }}
+                                        className={`w-full flex items-center justify-between p-4 rounded-2xl ${styles.light} ${styles.text} font-black hover:opacity-80 transition-all group border ${styles.border}`}
+                                    >
+                                        <span className="text-sm">Click to see next vulnerability</span>
+                                        <ArrowLeft className="rotate-180 transform group-hover:translate-x-1 transition-transform" size={18} />
+                                    </button>
+                                </div>
+                            )}
                         </motion.div>
+
 
                     </div>
                 </div>

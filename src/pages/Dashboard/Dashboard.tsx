@@ -318,7 +318,7 @@ const Dashboard = () => {
 
               {/* Mobile Header */}
               <div className="block sm:hidden px-6 py-4">
-                <h1 className="text-xl font-bold">Welcome back, {user?.fullName?.split(' ')[0] || 'User'}</h1>
+                <h1 className="text-xl font-bold">Welcome back</h1>
                 <p className={`text-sm ${theme === 'dark' ? 'text-text-secondary-dark' : 'text-text-secondary-light'
                   }`}>Here's an overview of your security audits</p>
               </div>

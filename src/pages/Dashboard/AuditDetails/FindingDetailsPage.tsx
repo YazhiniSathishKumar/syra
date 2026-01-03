@@ -10,7 +10,17 @@ const FindingDetailsPage: React.FC = () => {
 
     const audits = getUserRequests(currentUser.id);
     const audit = audits.find(a => a.id === auditId);
-    const finding = audit?.findings?.find(f => f.id === findingId);
+    const findings = audit?.findings || [];
+    const findingIndex = findings.findIndex(f => f.id === findingId);
+    const finding = findings[findingIndex];
+
+    // Find next finding of the same severity
+    const sameSeverityFindings = findings.filter(f => f.severity === finding?.severity);
+    const severityIndex = sameSeverityFindings.findIndex(f => f.id === findingId) + 1;
+    const severityCount = sameSeverityFindings.length;
+
+    const nextFinding = findings.slice(findingIndex + 1).find(f => f.severity === finding?.severity);
+    const nextFindingId = nextFinding?.id;
 
     if (!audit || !finding) {
         return <Navigate to="/dashboard" replace />;
@@ -25,6 +35,10 @@ const FindingDetailsPage: React.FC = () => {
             <FindingDetailsContent
                 finding={finding}
                 auditName={audit.auditType === 'web' ? 'Web Audit' : audit.companyName}
+                nextFindingId={nextFindingId}
+                auditId={auditId}
+                severityIndex={severityIndex}
+                severityCount={severityCount}
             />
         </DashboardLayout>
     );

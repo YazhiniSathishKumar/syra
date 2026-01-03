@@ -167,7 +167,8 @@ const RecommendationItem: React.FC<{
   finding: any;
   severity: string;
   auditId: string;
-}> = ({ finding, severity, auditId }) => {
+  index: number;
+}> = ({ finding, severity, auditId, index }) => {
   const navigate = useNavigate();
   const { title, description, score } = finding;
   const colors = {
@@ -178,14 +179,18 @@ const RecommendationItem: React.FC<{
   };
 
   const colorClass = colors[severity as keyof typeof colors] || colors.low;
-
   return (
     <div
-      className={`p-4 rounded-xl border-l-[6px] shadow-sm mb-4 transition-all duration-300 ${colorClass} hover:scale-[1.01] cursor-pointer`}
+      className={`p-4 rounded-xl border-l-[6px] shadow-sm transition-all duration-300 ${colorClass} hover:scale-[1.01] cursor-pointer`}
       onClick={() => navigate(`/audit/${auditId}/finding/${finding.id}`)}
     >
       <div className="flex justify-between items-start mb-1">
-        <h4 className="text-sm font-black flex-1">{severity.charAt(0).toUpperCase() + severity.slice(1)}: {title}</h4>
+        <div className="flex items-center gap-2 flex-1">
+          <span className="w-5 h-5 rounded-md bg-white/50 dark:bg-black/20 border border-current flex items-center justify-center text-[10px] font-black shrink-0">
+            {index}
+          </span>
+          <h4 className="text-sm font-black">{title}</h4>
+        </div>
         <div className="flex items-center gap-2">
           {score && (
             <span className="text-[10px] font-black px-2 py-0.5 rounded bg-white/50 dark:bg-black/20 border border-current whitespace-nowrap">
@@ -360,7 +365,7 @@ const AuditDetailsContent: React.FC<AuditDetailsContentProps> = ({ audit }) => {
                 </button>
               )}
             </div>
-            <div className="space-y-1">
+            <div className="space-y-4">
               {!selectedSeverity ? (
                 <div className="text-center py-12 text-gray-400 bg-gray-50/50 dark:bg-gray-900/50 rounded-2xl border border-dashed border-gray-200 dark:border-gray-800">
                   <Info size={32} className="mx-auto mb-2 opacity-30" />
@@ -385,6 +390,7 @@ const AuditDetailsContent: React.FC<AuditDetailsContentProps> = ({ audit }) => {
                       finding={finding}
                       severity={finding.severity}
                       auditId={audit.id}
+                      index={idx + 1}
                     />
                   ));
                 })()

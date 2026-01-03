@@ -54,38 +54,42 @@ const AuditCard: React.FC<AuditCardProps> = ({
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          <span
-            className={`px-3 py-1 rounded-full text-xs font-medium ${audit.status === 'Completed'
-              ? getColorClasses('success', 'bg') +
-              ' ' +
-              getColorClasses('success', 'text')
-              : audit.status === 'In Progress'
-                ? getColorClasses('info', 'bg') +
-                ' ' +
-                getColorClasses('info', 'text')
-                : getColorClasses('warning', 'bg') +
-                ' ' +
-                getColorClasses('warning', 'text')
-              }`}
-          >
-            {audit.status}
-          </span>
-          <span
-            className={`px-2 py-1 rounded text-xs font-medium ${audit.priority === 'high'
-              ? getColorClasses('error', 'bg') +
-              ' ' +
-              getColorClasses('error', 'text')
-              : audit.priority === 'medium'
-                ? getColorClasses('warning', 'bg') +
-                ' ' +
-                getColorClasses('warning', 'text')
-                : getColorClasses('success', 'bg') +
+          {!(audit.auditType === 'web' && (audit.status === 'Approved' || audit.status === 'Completed')) && (
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-medium ${audit.status === 'Completed' || audit.status === 'Approved'
+                ? getColorClasses('success', 'bg') +
                 ' ' +
                 getColorClasses('success', 'text')
-              }`}
-          >
-            {audit.priority}
-          </span>
+                : audit.status === 'In Progress'
+                  ? getColorClasses('info', 'bg') +
+                  ' ' +
+                  getColorClasses('info', 'text')
+                  : getColorClasses('warning', 'bg') +
+                  ' ' +
+                  getColorClasses('warning', 'text')
+                }`}
+            >
+              {audit.status}
+            </span>
+          )}
+          {!(audit.auditType === 'web' && audit.priority === 'high') && (
+            <span
+              className={`px-2 py-1 rounded text-xs font-medium ${audit.priority === 'high'
+                ? getColorClasses('error', 'bg') +
+                ' ' +
+                getColorClasses('error', 'text')
+                : audit.priority === 'medium'
+                  ? getColorClasses('warning', 'bg') +
+                  ' ' +
+                  getColorClasses('warning', 'text')
+                  : getColorClasses('success', 'bg') +
+                  ' ' +
+                  getColorClasses('success', 'text')
+                }`}
+            >
+              {audit.priority}
+            </span>
+          )}
         </div>
       </div>
       {audit.progress > 0 && audit.progress < 100 && (

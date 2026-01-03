@@ -25,7 +25,7 @@ export interface NotificationItem {
 export const statsData = [
   {
     label: 'Active Audits',
-    value: '1',
+    value: '0',
     icon: Shield,
     color: 'info',
     trend: '',

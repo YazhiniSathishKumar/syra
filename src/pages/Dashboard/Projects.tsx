@@ -31,10 +31,10 @@ const Projects: React.FC = () => {
       id: 'audit-web-001',
       name: 'Corporate Website Security Audit',
       client: 'SLN',
-      type: 'web',
+      type: 'Web Audit',
       status: 'completed',
       date: '2025-12-27',
-      score: 85,
+      score: 4.45,
       icon: Globe,
       vulnerabilities: {
         critical: 0,
@@ -48,7 +48,7 @@ const Projects: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [user, setUser] = useState<{ id: string, fullName: string, email: string } | null>(null);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -63,16 +63,7 @@ const Projects: React.FC = () => {
     }
   }, [location.state]);
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch (e) {
-        console.error('Failed to parse user from localStorage', e);
-      }
-    }
-  }, []);
+
 
   // Simulated notifications
   const [notifications] = useState([
@@ -206,7 +197,7 @@ const Projects: React.FC = () => {
       >
         {/* Mobile Header */}
         <div className="block sm:hidden mb-6">
-          <h1 className="text-xl font-bold">Welcome back, {user?.fullName?.split(' ')[0] || 'User'}</h1>
+          <h1 className="text-xl font-bold">Welcome back</h1>
           <p className={`text-sm ${theme === 'dark' ? 'text-text-secondary-dark' : 'text-text-secondary-light'
             }`}>Manage and track all your security audit projects</p>
         </div>
@@ -399,16 +390,15 @@ const Projects: React.FC = () => {
                         />
                         <span
                           className={`text-sm font-medium capitalize ${getStatusColor(project.status)
-                            } truncate max-w-[50%]`}
+                            } max-w-[70%]`}
                         >
                           {project.status.replace('-', ' ')}
                         </span>
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Date</span>
-                      <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'
-                        } truncate max-w-[50%]`}>
+                      <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Reporting Date</span>
+                      <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'} truncate max-w-[50%]`}>
                         {new Date(project.date).toLocaleDateString()}
                       </span>
                     </div>
@@ -423,12 +413,12 @@ const Projects: React.FC = () => {
                                 ? 'bg-yellow-500'
                                 : 'bg-red-500'
                               }`}
-                            style={{ width: `${scoreValue}%` }}
+                            style={{ width: `${(scoreValue / 10) * 100}%` }}
                           />
                         </div>
                         <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'
                           }`}>
-                          {scoreValue}%
+                          {scoreValue}
                         </span>
                       </div>
                     </div>
