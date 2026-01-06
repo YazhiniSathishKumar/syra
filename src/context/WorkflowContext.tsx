@@ -111,7 +111,15 @@ interface WorkflowProviderProps {
   children: ReactNode;
 }
 
+/**
+ * Default list of security findings for web application audits.
+ * These findings represent common vulnerabilities identified during testing.
+ */
 const DEFAULT_WEB_FINDINGS: Finding[] = [
+  /**
+   * Finding 1: Outdated PHP Version
+   * Risk: High - Use of unsupported software with known security vulnerabilities.
+   */
   {
     id: 'finding-high-1',
     title: 'Missing Rate Limiting on Login Endpoint',
@@ -165,6 +173,10 @@ Overall this is a session management weakness that increases the risk of unautho
     status: 'open',
     foundAt: '2025-10-15T10:00:00.000Z'
   },
+  /**
+   * Finding 2: Clickjacking Vulnerability (UI Redressing Attack)
+   * Risk Score: 6.3 - Higher risk for authenticated users who may be tricked into clicking hidden UI elements.
+   */
   {
     id: 'finding-info-1',
     title: 'Exposure of JWT Token Revealing Sensitive Information',

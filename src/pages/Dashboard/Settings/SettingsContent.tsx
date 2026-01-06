@@ -6,7 +6,6 @@ import {
   Bell,
   Shield,
   Key,
-  Globe,
   Moon,
   Sun,
   Save,
@@ -14,14 +13,11 @@ import {
   EyeOff,
   Smartphone,
   Mail,
-  Lock,
   AlertTriangle,
   CheckCircle,
   X,
   Palette,
-  Monitor,
   Database,
-  Wifi,
   Download,
   Upload,
   Trash2,
@@ -35,7 +31,7 @@ const SettingsContent: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const [profileData, setProfileData] = useState({
@@ -91,7 +87,7 @@ const SettingsContent: React.FC = () => {
     highContrast: false
   });
 
-  const handleSave = (section: string) => {
+  const handleSave = (_section: string) => {
     setShowSuccessMessage(true);
     setTimeout(() => setShowSuccessMessage(false), 3000);
   };
@@ -175,7 +171,7 @@ const SettingsContent: React.FC = () => {
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
                     className={`w-full flex items-center gap-4 px-4 py-4 rounded-xl text-left transition-all duration-300 group relative overflow-hidden ${isActive
-                      ? 'bg-gradient-to-r from-secondary-dark/20 to-accent-dark/20 text-secondary-dark dark:text-secondary-light border border-secondary-dark/30 dark:border-secondary-light/30'
+                      ? 'bg-gradient-to-r from-secondary-dark/20 to-accent-dark/20 text-blue-700 dark:text-white border border-secondary-dark/30 dark:border-secondary-light/30'
                       : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100/50 dark:hover:bg-gray-700/30 hover:text-gray-900 dark:hover:text-gray-100'
                       }`}
                     whileHover={{ scale: 1.02 }}
@@ -192,8 +188,8 @@ const SettingsContent: React.FC = () => {
                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                       />
                     )}
-                    <div className={`p-2 rounded-lg transition-all duration-300 ${isActive
-                      ? `bg-gradient-to-r ${tab.color} text-white shadow-lg`
+                    <div className={`p-2 rounded-lg transition-all duration-300 relative z-10 ${isActive
+                      ? 'bg-white/20 text-white shadow-lg'
                       : 'bg-gray-100 dark:bg-gray-700 group-hover:bg-gray-200 dark:group-hover:bg-gray-600'
                       }`}>
                       <Icon className="w-5 h-5" />

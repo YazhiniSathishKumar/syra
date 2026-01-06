@@ -14,14 +14,12 @@ import {
   Trash2,
   Globe
 } from 'lucide-react';
-// import { mockProjects } from '../../data/mockProjects';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
-import Sidebar from '../../components/Dashboard/Sidebar'; // Adjust path if needed
-import Header from '../../components/Dashboard/Header'; // Adjust path if needed
+import DashboardLayout from '../../components/Dashboard/DashboardLayout';
 
 const Projects: React.FC = () => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const [activeDropdownId, setActiveDropdownId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('all');
@@ -45,9 +43,6 @@ const Projects: React.FC = () => {
       }
     }
   ]);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const [showNotifications, setShowNotifications] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -62,32 +57,6 @@ const Projects: React.FC = () => {
       }
     }
   }, [location.state]);
-
-
-
-  // Simulated notifications
-  const [notifications] = useState([
-    {
-      id: 1,
-      title: 'Audit Request Approved',
-      description: 'Your security audit request has been approved.',
-      time: '2 hours ago',
-      unread: true
-    }
-  ]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 1024) {
-        setSidebarOpen(false);
-      } else {
-        setSidebarOpen(true);
-      }
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     const handleClickOutside = () => setActiveDropdownId(null);
@@ -134,67 +103,8 @@ const Projects: React.FC = () => {
   });
 
   return (
-    <div
-      className={`min-h-screen transition-all duration-300 ${theme === 'dark'
-        ? 'bg-background-dark text-text-dark'
-        : 'bg-background-light text-text-light'
-        }`}
-    >
-      {/* Sidebar */}
-      <Sidebar
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
-        activeTab="projects"
-        setActiveTab={() => { }}
-        handleNavigation={(id) => {
-          switch (id) {
-            case 'dashboard':
-              navigate('/dashboard');
-              break;
-            case 'projects':
-              navigate('/projects');
-              break;
-            case 'settings':
-              navigate('/settings');
-              break;
-            case 'help':
-              navigate('/help');
-              break;
-            default:
-              break;
-          }
-        }}
-        theme={theme}
-      />
-
-      {/* Header */}
-      <Header
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
-        theme={theme}
-        toggleTheme={toggleTheme}
-        userDropdownOpen={userDropdownOpen}
-        setUserDropdownOpen={setUserDropdownOpen}
-        notifications={notifications}
-        showNotifications={showNotifications}
-        setShowNotifications={setShowNotifications}
-        markAsRead={(id) => console.log('Marked as read:', id)}
-        removeNotification={(id) => console.log('Removed notification:', id)}
-        getColorClasses={(_color, variant = 'default') => {
-          const colorMap: Record<string, string> = {
-            default: theme === 'dark' ? 'text-white' : 'text-black',
-            success: 'text-green-500',
-            warning: 'text-yellow-500',
-            error: 'text-red-500'
-          };
-          return colorMap[variant] || colorMap.default;
-        }}
-      />
-
-      {/* Main Content */}
-      <main
-        className={`flex-1 transition-all duration-300 ease-in-out ${sidebarOpen ? 'lg:ml-[70px]' : 'lg:ml-[70px] ml-0'} pt-20 pb-8 px-4`}
-      >
+    <DashboardLayout userRole="user">
+      <div className="pt-8 pb-8 px-4">
         {/* Mobile Header */}
         <div className="block sm:hidden mb-6">
           <h1 className="text-xl font-bold">Welcome back</h1>
@@ -463,8 +373,8 @@ const Projects: React.FC = () => {
             </div>
           )}
         </div>
-      </main>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 };
 

@@ -776,7 +776,7 @@ const Header: React.FC<HeaderProps> = ({
           )}
 
           {/* Dashboard Title */}
-          <div className="hidden sm:block">
+          <div className={`hidden sm:block ${!sidebarOpen ? 'ml-6' : ''}`}>
             <h1 className="text-xl lg:text-2xl font-bold">Welcome back</h1>
             <p
               className={`text-sm ${theme === 'dark' ? 'text-text-secondary-dark' : 'text-text-secondary-light'
