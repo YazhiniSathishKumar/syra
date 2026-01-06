@@ -3,7 +3,6 @@
 import {
   Shield,
   CheckCircle,
-  Globe,
   Smartphone,
   FileText
 } from 'lucide-react';
@@ -46,8 +45,6 @@ export const recentAuditsData: any[] = [];
 export const notificationsData: NotificationItem[] = [];
 
 export const quickActionsData = [
-  { label: 'Web Scan', icon: Globe, color: 'info', description: 'Scan web applications' },
-  { label: 'Port Scan', icon: Shield, color: 'success', description: 'Network port analysis' },
   { label: 'Mobile Check', icon: Smartphone, color: 'secondary', description: 'Mobile app security' },
   { label: 'Report', icon: FileText, color: 'warning', description: 'Generate reports' }
 ];

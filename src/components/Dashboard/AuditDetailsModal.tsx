@@ -307,15 +307,16 @@ const AuditDetailsModal: React.FC<AuditDetailsModalProps> = ({
                       <div
                         key={idx}
                         className={`p-4 rounded-lg border-l-4 ${finding.severity === 'critical' ? 'border-red-500 ' + (theme === 'dark' ? 'bg-red-500/10' : 'bg-red-50') :
-                            finding.severity === 'high' ? 'border-orange-500 ' + (theme === 'dark' ? 'bg-orange-500/10' : 'bg-orange-50') :
-                              finding.severity === 'medium' ? 'border-yellow-500 ' + (theme === 'dark' ? 'bg-yellow-500/10' : 'bg-yellow-50') :
-                                'border-green-500 ' + (theme === 'dark' ? 'bg-green-500/10' : 'bg-green-50')
+                          finding.severity === 'high' ? 'border-orange-500 ' + (theme === 'dark' ? 'bg-orange-500/10' : 'bg-orange-50') :
+                            finding.severity === 'medium' ? 'border-yellow-500 ' + (theme === 'dark' ? 'bg-yellow-500/10' : 'bg-yellow-50') :
+                              'border-green-500 ' + (theme === 'dark' ? 'bg-green-500/10' : 'bg-green-50')
                           }`}
                       >
                         <h4 className={`font-medium ${finding.severity === 'critical' ? 'text-red-600 dark:text-red-400' :
-                            finding.severity === 'high' ? 'text-orange-600 dark:text-orange-400' :
-                              finding.severity === 'medium' ? 'text-yellow-600 dark:text-yellow-400' :
-                                'text-green-600 dark:text-green-400'
+                          finding.severity === 'high' ? 'text-orange-600 dark:text-orange-400' :
+                            finding.severity === 'medium' ? 'text-yellow-600 dark:text-yellow-400' :
+                              finding.severity === 'low' ? 'text-green-600 dark:text-green-400' :
+                                'text-blue-600 dark:text-blue-400'
                           }`}>
                           {finding.severity.charAt(0).toUpperCase() + finding.severity.slice(1)}: {finding.title}
                         </h4>

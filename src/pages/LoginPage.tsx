@@ -53,7 +53,7 @@ const LoginPage = () => {
 
     // Hardcoded authentication
     setTimeout(() => {
-      if (formData.email === 'client@gmail.com' && formData.password === 'Client@123') {
+      if (formData.email === 'scomode@gmail.com' && formData.password === 'Scomode@123') {
         localStorage.clear();
         localStorage.setItem('token', 'mock-jwt-token');
         localStorage.setItem('user_email', formData.email);
@@ -145,19 +145,9 @@ const LoginPage = () => {
             Sign In
           </Button>
 
-          <p className="text-center text-sm mt-6">
-            Don't have an account?{' '}
-            <button
-              type="button"
-              onClick={() => navigate('/get-started')}
-              className="text-secondary-dark font-semibold hover:underline"
-            >
-              Sign Up
-            </button>
-          </p>
         </form>
       </AuthCard>
-    </div>
+    </div >
   );
 };
 

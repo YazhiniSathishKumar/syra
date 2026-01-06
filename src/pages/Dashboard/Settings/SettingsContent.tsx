@@ -40,7 +40,7 @@ const SettingsContent: React.FC = () => {
 
   const [profileData, setProfileData] = useState({
     fullName: 'Test User',
-    email: 'test@example.com',
+    email: 'scomode@gmail.com',
     company: 'BCBUZZ Technologies',
     phone: '+1 (555) 123-4567',
     timezone: 'UTC-5 (Eastern Time)',

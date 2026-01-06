@@ -576,7 +576,6 @@ import {
   X,
   BarChart3,
   FolderOpen,
-  Scan,
   Settings,
   HelpCircle,
   Shield,
@@ -599,6 +598,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [user, setUser] = useState<{ id: string, fullName: string, email: string } | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -610,6 +610,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
       }
     }
   }, []);
+
+  const showLabels = isHovered || (window.innerWidth < 1024 && sidebarOpen);
   const [notifications, setNotifications] = useState([
     {
       id: 1,
@@ -647,7 +649,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
 
           { id: 'testing', label: 'Testing Dashboard', icon: TestTube, path: '/testing' },
           { id: 'assigned-audits', label: 'Assigned Audits', icon: FolderOpen, path: '/testing/audits' },
-          { id: 'tools', label: 'Testing Tools', icon: Scan, path: '/testing/tools' },
           { id: 'settings', label: 'Settings', icon: Settings, path: '/settings' },
           { id: 'help', label: 'Help', icon: HelpCircle, path: '/help' }
         ];
@@ -655,7 +656,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
         return [
           { id: 'dashboard', label: 'Dashboard', icon: BarChart3, path: '/dashboard' },
           { id: 'projects', label: 'Projects', icon: FolderOpen, path: '/projects' },
-          { id: 'scan', label: 'Request Audit', icon: Scan, path: '/request-audit' },
           { id: 'settings', label: 'Settings', icon: Settings, path: '/settings' },
           { id: 'help', label: 'Help', icon: HelpCircle, path: '/help' }
         ];
@@ -722,31 +722,49 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
     >
       {/* Sidebar */}
       <AnimatePresence>
-        {sidebarOpen && (
+        {(sidebarOpen || window.innerWidth >= 1024) && (
           <motion.div
-            initial={{ x: -280 }}
-            animate={{ x: 0 }}
-            exit={{ x: -280 }}
+            initial={window.innerWidth < 1024 ? { x: -280, width: 280 } : { width: 70 }}
+            animate={window.innerWidth < 1024 ? { x: 0, width: 280 } : { width: isHovered ? 280 : 70 }}
+            exit={window.innerWidth < 1024 ? { x: -280, width: 280 } : { width: 70 }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className={`fixed left-0 top-0 h-full w-70 z-50 backdrop-blur-xl ${theme === 'dark'
-              ? 'bg-surface-dark/95 border-surface-secondary-dark/30 shadow-dark-elevated'
-              : 'bg-surface-light/95 border-gray-200 shadow-xl'
+            className={`fixed left-0 top-0 h-full z-50 backdrop-blur-xl ${theme === 'dark'
+              ? `bg-surface-dark/40 ${isHovered ? 'shadow-2xl' : 'border-r border-surface-secondary-dark/20'}`
+              : `bg-white/90 ${isHovered ? 'shadow-2xl' : 'border-r border-gray-200'}`
               } border-r`}
+            style={{
+              background:
+                theme === 'dark'
+                  ? isHovered ? 'rgba(15, 23, 42, 0.95)' : 'rgba(30, 41, 59, 0.4)'
+                  : isHovered ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.8)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
           >
             {/* Logo */}
             <div
-              className={`p-6 border-b ${theme === 'dark' ? 'border-surface-secondary-dark/30' : 'border-gray-200'
+              className={`p-3 border-b ${theme === 'dark' ? 'border-surface-secondary-dark/30' : 'border-gray-200'
                 }`}
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
+              <div className={`flex items-center ${showLabels ? 'justify-between' : 'justify-center'}`}>
+                <div className="flex items-center overflow-hidden">
                   <div
-                    className={`w-10 h-10 bg-gradient-to-br from-secondary-dark to-accent-dark rounded-xl flex items-center justify-center ${theme === 'dark' ? 'shadow-glow' : 'shadow-lg'
+                    className={`w-10 h-10 min-w-[40px] bg-gradient-to-br from-secondary-dark to-accent-dark rounded-xl flex items-center justify-center ${theme === 'dark' ? 'shadow-glow' : 'shadow-lg'
                       }`}
                   >
                     <span className="text-white font-bold text-lg">BC</span>
                   </div>
-                  <div>
+                  <motion.div
+                    animate={{
+                      opacity: showLabels ? 1 : 0,
+                      width: showLabels ? 'auto' : 0,
+                      marginLeft: showLabels ? 12 : 0
+                    }}
+                    className="whitespace-nowrap overflow-hidden"
+                    transition={{ duration: 0.3 }}
+                  >
                     <h1 className="text-xl font-bold bg-gradient-to-r from-secondary-dark to-accent-dark bg-clip-text text-transparent">
                       BCBUZZ
                     </h1>
@@ -756,19 +774,22 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
                     >
                       Security Platform
                     </p>
-                  </div>
+                  </motion.div>
                 </div>
-                <motion.button
-                  onClick={() => setSidebarOpen(false)}
-                  className={`p-2 rounded-lg transition-all duration-200  ${theme === 'dark'
-                    ? 'hover:bg-surface-secondary-dark/50 text-text-secondary-dark hover:text-text-dark'
-                    : 'hover:bg-gray-100 text-text-secondary-light hover:text-text-light'
-                    }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <X className="w-5 h-5" />
-                </motion.button>
+                {/* Close Button - Only on mobile or when expanded */}
+                {window.innerWidth < 1024 && (
+                  <motion.button
+                    onClick={() => setSidebarOpen(false)}
+                    className={`p-2 rounded-lg transition-all duration-200  ${theme === 'dark'
+                      ? 'hover:bg-surface-secondary-dark/50 text-text-secondary-dark hover:text-text-dark'
+                      : 'hover:bg-gray-100 text-text-secondary-light hover:text-text-light'
+                      }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <X className="w-5 h-5" />
+                  </motion.button>
+                )}
               </div>
             </div>
 
@@ -782,23 +803,33 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
                     <motion.button
                       key={item.id}
                       onClick={() => handleNavigation(item.path)}
-                      className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 group ${isActive
+                      className={`w-full flex items-center space-x-3 rounded-xl transition-all duration-200 group ${isActive
                         ? theme === 'dark'
-                          ? 'bg-gradient-to-r from-secondary-dark/30 to-accent-dark/30 text-secondary-dark border border-secondary-dark/30 shadow-inner-glow'
+                          ? 'bg-gradient-to-r from-secondary-dark/30 to-accent-dark/30 text-secondary-dark border border-secondary-dark/30 shadow-inner-glow backdrop-blur-sm'
                           : 'bg-gradient-to-r from-blue-50 to-sky-50 text-blue-600 border border-blue-200'
                         : theme === 'dark'
-                          ? 'hover:bg-surface-secondary-dark/30 text-text-secondary-dark hover:text-text-dark'
-                          : 'hover:bg-gray-50 text-text-secondary-light hover:text-text-light'
-                        }`}
+                          ? 'hover:bg-surface-secondary-dark/30 text-text-secondary-dark hover:text-text-dark backdrop-blur-sm'
+                          : 'hover:bg-gray-50 text-text-secondary-light hover:text-text-light backdrop-blur-sm'
+                        } ${showLabels ? 'px-4 py-3' : 'p-[9px] justify-center'}`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <Icon
-                        className={`w-5 h-5 transition-transform duration-200 ${isActive ? 'scale-110' : 'group-hover:scale-105'
+                        className={`w-5 h-5 min-w-[20px] transition-transform duration-200 ${isActive ? 'scale-110' : 'group-hover:scale-105'
                           }`}
                       />
-                      <span className="font-medium">{item.label}</span>
-                      {isActive && (
+                      <motion.span
+                        animate={{
+                          opacity: showLabels ? 1 : 0,
+                          width: showLabels ? 'auto' : 0,
+                          marginLeft: showLabels ? 12 : 0
+                        }}
+                        className="font-medium whitespace-nowrap overflow-hidden"
+                        transition={{ duration: 0.3 }}
+                      >
+                        {item.label}
+                      </motion.span>
+                      {isActive && showLabels && (
                         <motion.div
                           layoutId="activeTab"
                           className="ml-auto w-2 h-2 bg-secondary-dark rounded-full"
@@ -825,32 +856,47 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
                   }`}
               >
                 <div
-                  className={`w-10 h-10 bg-gradient-to-br from-secondary-dark to-accent-dark rounded-full flex items-center justify-center ${theme === 'dark' ? 'shadow-glow' : 'shadow-lg'
+                  className={`w-10 h-10 min-w-[40px] bg-gradient-to-br from-secondary-dark to-accent-dark rounded-full flex items-center justify-center ${theme === 'dark' ? 'shadow-glow' : 'shadow-lg'
                     }`}
                 >
                   <User className="w-5 h-5 text-white" />
                 </div>
-                <div className="flex-1">
-                  <p className="font-medium text-sm">{user?.fullName || 'User'}</p>
+                <motion.div
+                  animate={{
+                    opacity: showLabels ? 1 : 0,
+                    width: showLabels ? 'auto' : 0,
+                    marginLeft: showLabels ? 12 : 0
+                  }}
+                  className="flex-1 overflow-hidden"
+                >
+                  <p className="font-medium text-sm whitespace-nowrap">{user?.fullName || 'User'}</p>
                   <p
-                    className={`text-xs capitalize ${theme === 'dark' ? 'text-text-secondary-dark' : 'text-text-secondary-light'
+                    className={`text-xs capitalize whitespace-nowrap ${theme === 'dark' ? 'text-text-secondary-dark' : 'text-text-secondary-light'
                       }`}
                   >
                     {user?.email || userRole}
                   </p>
-                </div>
+                </motion.div>
               </div>
               <motion.button
                 onClick={handleLogout}
-                className={`w-full flex items-center space-x-3 px-4 py-3 mt-3 rounded-xl transition-all duration-200 ${theme === 'dark'
+                className={`w-full flex items-center rounded-xl transition-all duration-200 mt-3 group ${theme === 'dark'
                   ? 'hover:bg-error-dark/20 text-error-dark hover:text-red-300'
                   : 'hover:bg-red-50 text-red-600 hover:text-red-700'
-                  }`}
+                  } ${showLabels ? 'px-4 py-3 space-x-3' : 'p-[9px] justify-center'}`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <LogOutIcon className="w-5 h-5" />
-                <span className="font-medium">Logout</span>
+                <LogOutIcon className="w-5 h-5 min-w-[20px]" />
+                <motion.span
+                  animate={{
+                    opacity: showLabels ? 1 : 0,
+                    width: showLabels ? 'auto' : 0
+                  }}
+                  className="font-medium whitespace-nowrap overflow-hidden"
+                >
+                  Logout
+                </motion.span>
               </motion.button>
             </div>
           </motion.div>
@@ -862,50 +908,31 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
         className={`${theme === 'dark'
           ? 'bg-surface-dark/80 border-b border-surface-secondary-dark/30 shadow-dark-card'
           : 'bg-surface-light/80 border-b border-gray-200'
-          } backdrop-blur-xl sticky top-0 z-40 ${sidebarOpen ? 'lg:ml-70' : 'ml-0'} transition-all duration-300`}
+          } backdrop-blur-xl sticky top-0 z-40 transition-all duration-300 ${window.innerWidth >= 1024 ? 'ml-[70px]' : 'ml-0'
+          }`}
       >
         <div className="flex items-center justify-between p-4 lg:p-6">
           <div className="flex items-center space-x-4">
-            {/* Show Hamburger Only When Sidebar is Closed */}
-            {!sidebarOpen && (
-              <motion.button
-                onClick={() => setSidebarOpen(true)}
-                className={`p-2 rounded-lg transition-all duration-200 ${theme === 'dark'
-                  ? 'hover:bg-surface-secondary-dark/50 text-text-secondary-dark hover:text-text-dark'
-                  : 'hover:bg-gray-100 text-text-secondary-light hover:text-text-light'
-                  }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="Toggle Sidebar"
-              >
-                <Menu className="w-5 h-5" />
-              </motion.button>
-            )}
+            {/* Show Hamburger Only On Mobile */}
+            <motion.button
+              onClick={() => setSidebarOpen(true)}
+              className={`p-2 rounded-lg transition-all duration-200 lg:hidden ${theme === 'dark'
+                ? 'hover:bg-surface-secondary-dark/50 text-text-secondary-dark hover:text-text-dark'
+                : 'hover:bg-gray-100 text-text-secondary-light hover:text-text-light'
+                }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Toggle Sidebar"
+            >
+              <Menu className="w-5 h-5" />
+            </motion.button>
 
-            {/* Logo (only shown when sidebar is closed) */}
-            {!sidebarOpen && (
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="flex items-center space-x-3"
-              >
-                <div
-                  className={`w-8 h-8 bg-gradient-to-br from-secondary-dark to-accent-dark rounded-lg flex items-center justify-center ${theme === 'dark' ? 'shadow-glow' : 'shadow-lg'
-                    }`}
-                >
-                  <span className="text-white font-bold text-sm">BC</span>
-                </div>
-                <h1
-                  className="text-lg font-bold bg-gradient-to-r from-secondary-dark to-accent-dark bg-clip-text text-transparent hidden sm:block"
-                  style={{
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent'
-                  }}
-                >
-                  BCBUZZ
-                </h1>
-              </motion.div>
-            )}
+            {/* Mobile Logo */}
+            <div className="lg:hidden flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-secondary-dark to-accent-dark rounded-lg flex items-center justify-center shadow-lg">
+                <span className="text-white font-bold text-sm">BC</span>
+              </div>
+            </div>
           </div>
 
           {/* Right-side controls */}
@@ -960,63 +987,65 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
                 )}
               </motion.button>
 
-              {showNotifications && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className={`absolute right-0 top-full mt-2 w-80 max-h-96 overflow-y-auto z-50 rounded-xl border backdrop-blur-xl ${theme === 'dark'
-                    ? 'bg-surface-dark/95 border-surface-secondary-dark/30 shadow-dark-card'
-                    : 'bg-white border-gray-200 shadow-lg'
-                    }`}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div
-                    className={`p-4 border-b ${theme === 'dark' ? 'border-surface-secondary-dark/30' : 'border-gray-200'
+              <AnimatePresence>
+                {showNotifications && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className={`absolute right-0 top-full mt-2 w-80 max-h-96 overflow-y-auto z-50 rounded-xl border backdrop-blur-xl ${theme === 'dark'
+                      ? 'bg-surface-dark/95 border-surface-secondary-dark/30 shadow-dark-card'
+                      : 'bg-white border-gray-200 shadow-lg'
                       }`}
+                    onClick={(e) => e.stopPropagation()}
                   >
-                    <h3 className="text-sm font-medium">Notifications</h3>
-                  </div>
-                  <div className="divide-y divide-surface-secondary-dark/20">
-                    {notifications.map(notification => (
-                      <div
-                        key={notification.id}
-                        onClick={() => markAsRead(notification.id)}
-                        className={`p-4 transition-colors cursor-pointer group relative ${notification.unread
-                          ? theme === 'dark' ? 'bg-secondary-dark/5 shadow-inner' : 'bg-blue-50/50'
-                          : 'hover:bg-gray-50/50 dark:hover:bg-gray-700/30'
-                          }`}
-                      >
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <h4 className={`font-medium text-sm ${notification.unread ? 'text-blue-500' : ''}`}>{notification.title}</h4>
-                            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                              {notification.description}
-                            </p>
-                            <span className="text-xs text-gray-500 dark:text-gray-500 mt-2 block">
-                              {notification.time}
-                            </span>
-                          </div>
-                          <div className="flex flex-col items-end space-y-2">
-                            {notification.unread && (
-                              <div className="w-2 h-2 bg-blue-500 rounded-full ml-2 mt-1"></div>
-                            )}
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                removeNotification(notification.id);
-                              }}
-                              className="opacity-0 group-hover:opacity-100 p-1 hover:bg-red-500/10 text-red-500 rounded-full transition-all"
-                            >
-                              <X className="w-3 h-3" />
-                            </button>
+                    <div
+                      className={`p-4 border-b ${theme === 'dark' ? 'border-surface-secondary-dark/30' : 'border-gray-200'
+                        }`}
+                    >
+                      <h3 className="text-sm font-medium">Notifications</h3>
+                    </div>
+                    <div className="divide-y divide-surface-secondary-dark/20">
+                      {notifications.map(notification => (
+                        <div
+                          key={notification.id}
+                          onClick={() => markAsRead(notification.id)}
+                          className={`p-4 transition-colors cursor-pointer group relative ${notification.unread
+                            ? theme === 'dark' ? 'bg-secondary-dark/5 shadow-inner' : 'bg-blue-50/50'
+                            : 'hover:bg-gray-50/50 dark:hover:bg-gray-700/30'
+                            }`}
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <h4 className={`font-medium text-sm ${notification.unread ? 'text-blue-500' : ''}`}>{notification.title}</h4>
+                              <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                                {notification.description}
+                              </p>
+                              <span className="text-xs text-gray-500 dark:text-gray-500 mt-2 block">
+                                {notification.time}
+                              </span>
+                            </div>
+                            <div className="flex flex-col items-end space-y-2">
+                              {notification.unread && (
+                                <div className="w-2 h-2 bg-blue-500 rounded-full ml-2 mt-1"></div>
+                              )}
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  removeNotification(notification.id);
+                                }}
+                                className="opacity-0 group-hover:opacity-100 p-1 hover:bg-red-500/10 text-red-500 rounded-full transition-all"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* User Dropdown (only shown when sidebar is closed) */}
@@ -1129,7 +1158,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
       </header>
 
       {/* Main Content */}
-      <main className={`flex-1 transition-all duration-300 ease-in-out ${sidebarOpen ? 'lg:ml-[70px]' : 'lg:ml-[70px] ml-0'}`}>
+      <main className={`flex-1 transition-all duration-300 ease-in-out ${window.innerWidth >= 1024 ? 'ml-[70px]' : 'ml-0'
+        }`}>
         {children}
       </main>
 

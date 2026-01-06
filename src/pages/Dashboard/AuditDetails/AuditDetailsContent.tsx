@@ -83,11 +83,11 @@ const VulnerabilityChart: React.FC<{ vulnerabilities: AuditRequest['vulnerabilit
   const vuln = vulnerabilities || { critical: 0, high: 0, medium: 0, low: 0, informational: 0, total: 0 };
   const total = vuln.total || 1;
   const categories = [
-    { label: 'Critical', count: vuln.critical || 0, color: '#EF4444' },
-    { label: 'High', count: vuln.high || 0, color: '#F97316' },
-    { label: 'Medium', count: vuln.medium || 0, color: '#EAB308' },
-    { label: 'Low', count: vuln.low || 0, color: '#10B981' },
-    { label: 'Info', count: vuln.informational || 0, color: '#3B82F6' }
+    { label: 'Critical', value: 'critical', count: vuln.critical || 0, color: '#EF4444' },
+    { label: 'High', value: 'high', count: vuln.high || 0, color: '#F97316' },
+    { label: 'Medium', value: 'medium', count: vuln.medium || 0, color: '#EAB308' },
+    { label: 'Low', value: 'low', count: vuln.low || 0, color: '#10B981' },
+    { label: 'Info', value: 'informational', count: vuln.informational || 0, color: '#3B82F6' }
   ];
 
   let cumulativeOffset = 0;
@@ -110,7 +110,7 @@ const VulnerabilityChart: React.FC<{ vulnerabilities: AuditRequest['vulnerabilit
         <div className="relative w-44 h-44 mb-8">
           <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
             {categories.map((cat, i) => {
-              const percentage = cat.count / total;
+              const percentage = (cat.count || 0) / total;
               const strokeDasharray = `${percentage * circumference} ${circumference}`;
               const strokeDashoffset = -cumulativeOffset;
               cumulativeOffset += percentage * circumference;
@@ -125,11 +125,11 @@ const VulnerabilityChart: React.FC<{ vulnerabilities: AuditRequest['vulnerabilit
                   r={radius}
                   fill="transparent"
                   stroke={cat.color}
-                  strokeWidth={selectedSeverity === cat.label.toLowerCase() ? "14" : "10"}
+                  strokeWidth={selectedSeverity === cat.value ? "14" : "10"}
                   strokeDasharray={strokeDasharray}
                   strokeDashoffset={strokeDashoffset}
                   className="transition-all duration-300 ease-out cursor-pointer hover:stroke-[12px]"
-                  onClick={() => onSelectSeverity(cat.label.toLowerCase() === selectedSeverity ? null : cat.label.toLowerCase())}
+                  onClick={() => onSelectSeverity(cat.value === selectedSeverity ? null : cat.value)}
                 />
               );
             })}
@@ -137,7 +137,7 @@ const VulnerabilityChart: React.FC<{ vulnerabilities: AuditRequest['vulnerabilit
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center cursor-pointer" onClick={() => onSelectSeverity(null)}>
             <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-tighter">{selectedSeverity ? "Filtered" : "Reported"}</span>
             <span className="text-3xl font-black text-gray-900 dark:text-white leading-none">
-              {selectedSeverity ? (categories.find(c => c.label.toLowerCase() === selectedSeverity)?.count || 0) : (vuln.total || 0)}
+              {selectedSeverity ? (categories.find(c => c.value === selectedSeverity)?.count || 0) : (vuln.total || 0)}
             </span>
           </div>
         </div>
@@ -146,12 +146,12 @@ const VulnerabilityChart: React.FC<{ vulnerabilities: AuditRequest['vulnerabilit
           {categories.map((cat, i) => (
             <div
               key={i}
-              className={`text-center cursor-pointer p-1 rounded-lg transition-all ${selectedSeverity === cat.label.toLowerCase() ? 'bg-gray-100 dark:bg-gray-700/50 ring-1 ring-gray-200 dark:ring-gray-700' : 'hover:bg-gray-50 dark:hover:bg-gray-800/30'}`}
-              onClick={() => onSelectSeverity(cat.label.toLowerCase() === selectedSeverity ? null : cat.label.toLowerCase())}
+              className={`text-center cursor-pointer p-1 rounded-lg transition-all ${selectedSeverity === cat.value ? 'bg-gray-100 dark:bg-gray-700/50 ring-1 ring-gray-200 dark:ring-gray-700' : 'hover:bg-gray-50 dark:hover:bg-gray-800/30'}`}
+              onClick={() => onSelectSeverity(cat.value === selectedSeverity ? null : cat.value)}
             >
               <div
                 className="h-2 rounded-full mb-2"
-                style={{ backgroundColor: cat.color, opacity: !selectedSeverity || selectedSeverity === cat.label.toLowerCase() ? 1 : 0.3 }}
+                style={{ backgroundColor: cat.color, opacity: !selectedSeverity || selectedSeverity === cat.value ? 1 : 0.3 }}
               />
               <div className="text-[10px] font-black text-gray-500 dark:text-gray-400 tracking-tighter uppercase">{cat.label}</div>
               <div className="text-lg font-black text-gray-900 dark:text-white">{cat.count}</div>
@@ -176,6 +176,7 @@ const RecommendationItem: React.FC<{
     high: 'border-l-orange-500 bg-orange-50/50 dark:bg-orange-900/10 text-orange-800 dark:text-orange-400',
     medium: 'border-l-yellow-500 bg-yellow-50/50 dark:bg-yellow-900/10 text-yellow-800 dark:text-yellow-400',
     low: 'border-l-emerald-500 bg-emerald-50/50 dark:bg-emerald-900/10 text-emerald-800 dark:text-emerald-400',
+    informational: 'border-l-blue-500 bg-blue-50/50 dark:bg-blue-900/10 text-blue-800 dark:text-blue-400',
   };
 
   const colorClass = colors[severity as keyof typeof colors] || colors.low;
@@ -192,7 +193,7 @@ const RecommendationItem: React.FC<{
           <h4 className="text-sm font-black">{title}</h4>
         </div>
         <div className="flex items-center gap-2">
-          {score && (
+          {score !== undefined && score > 0 && (
             <span className="text-[10px] font-black px-2 py-0.5 rounded bg-white/50 dark:bg-black/20 border border-current whitespace-nowrap">
               {score}/10
             </span>

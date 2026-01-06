@@ -2,7 +2,6 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   BarChart3,
-  Scan,
   Settings,
   HelpCircle,
   LogOut,
@@ -48,7 +47,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   const sidebarItems = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
     { id: 'projects', label: 'Projects', icon: FolderOpen },
-    { id: 'scan', label: 'Scan', icon: Scan },
     { id: 'settings', label: 'Settings', icon: Settings },
     { id: 'help', label: 'Help', icon: HelpCircle },
   ];

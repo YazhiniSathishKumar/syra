@@ -2,7 +2,6 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { useEffect } from 'react';
 import LoginPage from './pages/LoginPage';
-import GetStarted from './pages/GetStarted';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Help from './pages/Dashboard/Help/Help';
 import Projects from './pages/Dashboard/Projects';
@@ -36,7 +35,6 @@ function App() {
           <Routes location={location} key={location.pathname}>
             {/* Public Routes */}
             <Route path="/" element={<LoginPage />} />
-            <Route path="/get-started" element={<GetStarted />} />
 
             {/* Protected Routes */}
             <Route path="/dashboard" element={

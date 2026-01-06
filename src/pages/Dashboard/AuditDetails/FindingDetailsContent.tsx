@@ -99,20 +99,22 @@ const FindingDetailsContent: React.FC<FindingDetailsContentProps> = ({ finding, 
                             </h1>
                         </motion.div>
 
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="flex items-center gap-4 bg-white dark:bg-gray-900 p-6 rounded-[2.5rem] shadow-xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800"
-                        >
-                            <div className={`w-16 h-16 rounded-3xl bg-gradient-to-br ${styles.bg} flex flex-col items-center justify-center text-white shadow-lg`}>
-                                <span className="text-2xl font-black leading-none">{finding.score}</span>
-                                <span className="text-[10px] font-bold opacity-70">/10</span>
-                            </div>
-                            <div>
-                                <div className="text-[10px] font-black uppercase tracking-widest text-gray-400">Risk Score</div>
-                                <div className={`text-sm font-black ${styles.text} capitalize`}>{finding.severity}</div>
-                            </div>
-                        </motion.div>
+                        {finding.score !== undefined && finding.score > 0 && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="flex items-center gap-4 bg-white dark:bg-gray-900 p-6 rounded-[2.5rem] shadow-xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800"
+                            >
+                                <div className={`w-16 h-16 rounded-3xl bg-gradient-to-br ${styles.bg} flex flex-col items-center justify-center text-white shadow-lg`}>
+                                    <span className="text-2xl font-black leading-none">{finding.score}</span>
+                                    <span className="text-[10px] font-bold opacity-70">/10</span>
+                                </div>
+                                <div>
+                                    <div className="text-[10px] font-black uppercase tracking-widest text-gray-400">Risk Score</div>
+                                    <div className={`text-sm font-black ${styles.text} capitalize`}>{finding.severity}</div>
+                                </div>
+                            </motion.div>
+                        )}
                     </div>
                 </div>
 
@@ -175,6 +177,32 @@ const FindingDetailsContent: React.FC<FindingDetailsContentProps> = ({ finding, 
                                 {finding.recommendation}
                             </div>
                         </motion.div>
+
+                        {/* References Card */}
+                        {finding.references && finding.references.length > 0 && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 }}
+                                className="bg-white dark:bg-gray-900 rounded-[2.5rem] p-8 md:p-10 shadow-sm border border-gray-100 dark:border-gray-800 relative overflow-hidden"
+                            >
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-2.5 rounded-2xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
+                                        <Info size={20} />
+                                    </div>
+                                    <h2 className="text-xl font-black text-gray-900 dark:text-white tracking-tight">References</h2>
+                                </div>
+                                <ul className="list-disc list-inside text-base text-gray-600 dark:text-gray-400 leading-relaxed font-bold space-y-2">
+                                    {finding.references.map((ref, idx) => (
+                                        <li key={idx}>
+                                            <a href={ref.includes('http') ? ref : '#'} target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">
+                                                {ref}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </motion.div>
+                        )}
                     </div>
 
                     {/* Right Column - Info Panel */}

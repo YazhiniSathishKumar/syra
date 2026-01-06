@@ -70,9 +70,6 @@ const Dashboard = () => {
       case 'help':
         navigate('/help');
         break;
-      case 'scan':
-        navigate('/get-started');
-        break;
       default:
         navigate('/dashboard');
         break;
@@ -176,8 +173,8 @@ const Dashboard = () => {
           submittedAt: new Date('2025-12-01').toISOString(),
           progress: 65,
           testingPhase: 'Penetration Testing',
-          testingPeriod: '11th Dec to 12th Dec, 2025 and 17th Dec to 22nd Dec, 2025',
-          reportDelivery: '2025-12-27',
+          testingPeriod: '14th Oct, 2025 and 16th Oct, 2025',
+          reportDelivery: '2025-10-16',
           vulnerabilities: {
             critical: 1,
             high: 3,

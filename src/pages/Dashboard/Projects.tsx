@@ -30,18 +30,18 @@ const Projects: React.FC = () => {
     {
       id: 'audit-web-001',
       name: 'Corporate Website Security Audit',
-      client: 'SLN',
+      client: 'Scomode',
       type: 'Web Audit',
       status: 'completed',
-      date: '2025-12-27',
-      score: 4.45,
+      date: '2025-10-16',
+      score: 7.0,
       icon: Globe,
       vulnerabilities: {
         critical: 0,
-        high: 0,
-        medium: 5,
-        low: 5,
-        informational: 0
+        high: 1,
+        medium: 1,
+        low: 0,
+        informational: 1
       }
     }
   ]);
