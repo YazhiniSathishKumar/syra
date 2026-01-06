@@ -1,0 +1,86 @@
+﻿
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\components\Dashboard\AuditCard.tsx
+  6:10  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\components\Dashboard\DashboardLayout.tsx
+   23:8  error  'Sidebar' is defined but never used                   @typescript-eslint/no-unused-vars
+   24:8  error  'Header' is defined but never used                    @typescript-eslint/no-unused-vars
+  168:9  error  'getColorClasses' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\components\Dashboard\DocumentCard.tsx
+  8:8  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\components\Dashboard\QuickActionCard.tsx
+  7:11  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\components\Dashboard\Sidebar.tsx
+  19:9  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\components\effects\ParticleText.tsx
+  375:6  warning  React Hook useEffect has missing dependencies: 'colors', 'positions', 'randomPositions', 'targetPositions', and 'text'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\context\ThemeContext.tsx
+  12:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\context\WorkflowContext.tsx
+  102:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\data\mockProjects.ts
+  1:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\Dashboard\AdminDashboard\AdminDashboardContent.tsx
+    7:3   error  'XCircle' is defined but never used             @typescript-eslint/no-unused-vars
+    9:3   error  'AlertTriangle' is defined but never used       @typescript-eslint/no-unused-vars
+   10:3   error  'TrendingUp' is defined but never used          @typescript-eslint/no-unused-vars
+   13:3   error  'Filter' is defined but never used              @typescript-eslint/no-unused-vars
+   14:3   error  'MoreVertical' is defined but never used        @typescript-eslint/no-unused-vars
+   16:3   error  'Check' is defined but never used               @typescript-eslint/no-unused-vars
+   79:13  error  'url' is never reassigned. Use 'const' instead  prefer-const
+  180:15  error  'res' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  198:15  error  'res' is assigned a value but never used        @typescript-eslint/no-unused-vars
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\Dashboard\AuditDetails\AuditDetailsContent.tsx
+  167:12  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  245:14  error  'err' is defined but never used           @typescript-eslint/no-unused-vars
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\Dashboard\AuditDetails\FindingDetailsPage.tsx
+  29:5  error  React Hook "React.useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\Dashboard\Projects.tsx
+   51:46  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   52:41  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   95:77  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  177:45  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\Dashboard\Settings\SettingsContent.tsx
+  90:23  error  '_section' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\Dashboard\TestingDashboard\TestingDashboardContent.tsx
+   5:3   error  'Clock' is defined but never used         @typescript-eslint/no-unused-vars
+  11:3   error  'RotateCcw' is defined but never used     @typescript-eslint/no-unused-vars
+  13:3   error  'Filter' is defined but never used        @typescript-eslint/no-unused-vars
+  17:3   error  'TrendingUp' is defined but never used    @typescript-eslint/no-unused-vars
+  18:3   error  'Users' is defined but never used         @typescript-eslint/no-unused-vars
+  63:60  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\ForgotPasswordPage.tsx
+  36:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\OTPVerificationPage.tsx
+  220:9   error  'location' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  240:14  error  'setId' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  246:17  error  'setEmail' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  332:21  error  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  352:21  error  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\types\three-examples.d.ts
+  25:13  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  37:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\utils\api.ts
+  11:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  37:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+Ô£û 44 problems (41 errors, 3 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

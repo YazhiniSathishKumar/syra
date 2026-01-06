@@ -1,0 +1,6 @@
+﻿
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\Dashboard\Settings\SettingsContent.tsx
+  90:23  error  '_section' is defined but never used  @typescript-eslint/no-unused-vars
+
+Ô£û 1 problem (1 error, 0 warnings)
+

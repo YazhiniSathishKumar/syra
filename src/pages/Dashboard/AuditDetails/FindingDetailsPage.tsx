@@ -22,13 +22,13 @@ const FindingDetailsPage: React.FC = () => {
     const nextFinding = findings.slice(findingIndex + 1).find(f => f.severity === finding?.severity);
     const nextFindingId = nextFinding?.id;
 
-    if (!audit || !finding) {
-        return <Navigate to="/dashboard" replace />;
-    }
-
     React.useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    if (!audit || !finding) {
+        return <Navigate to="/dashboard" replace />;
+    }
 
     return (
         <DashboardLayout>

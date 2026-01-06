@@ -16,7 +16,7 @@ import { useState, useEffect } from 'react';
 interface SidebarItem {
   id: string;
   label: string;
-  icon: any; // Lucide icon type
+  icon: React.ElementType; // Lucide icon type
   path?: string;
 }
 
@@ -110,8 +110,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <motion.div
                   animate={{
                     opacity: showLabels ? 1 : 0,
-                    width: showLabels ? 'auto' : 0,
-                    marginLeft: showLabels ? 12 : 0
+                    width: showLabels ? 'auto' : '0px',
+                    marginLeft: showLabels ? '12px' : '0px'
                   }}
                   className="whitespace-nowrap overflow-hidden"
                   transition={{ duration: 0.3 }}
@@ -181,8 +181,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                       <motion.span
                         animate={{
                           opacity: showLabels ? 1 : 0,
-                          width: showLabels ? 'auto' : 0,
-                          marginLeft: showLabels ? 12 : 0
+                          width: showLabels ? 'auto' : '0px',
+                          marginLeft: showLabels ? '12px' : '0px'
                         }}
                         className="font-medium whitespace-nowrap overflow-hidden"
                         transition={{ duration: 0.3 }}
@@ -229,8 +229,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <motion.div
                   animate={{
                     opacity: showLabels ? 1 : 0,
-                    width: showLabels ? 'auto' : 0,
-                    marginLeft: showLabels ? 12 : 0
+                    width: showLabels ? 'auto' : '0px',
+                    marginLeft: showLabels ? '12px' : '0px'
                   }}
                   className="flex-1 overflow-hidden"
                   transition={{ duration: 0.3 }}
@@ -261,8 +261,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                   <motion.span
                     animate={{
                       opacity: showLabels ? 1 : 0,
-                      width: showLabels ? 'auto' : 0,
-                      marginLeft: showLabels ? 12 : 0
+                      width: showLabels ? 'auto' : '0px',
+                      marginLeft: showLabels ? '12px' : '0px'
                     }}
                     className="font-medium whitespace-nowrap overflow-hidden"
                     transition={{ duration: 0.3 }}

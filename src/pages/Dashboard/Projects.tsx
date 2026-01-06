@@ -17,6 +17,25 @@ import {
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import DashboardLayout from '../../components/Dashboard/DashboardLayout';
+import { LucideIcon } from 'lucide-react';
+
+interface Project {
+  id: string;
+  name: string;
+  client: string;
+  type: string;
+  status: string;
+  date: string;
+  score: number;
+  icon: LucideIcon;
+  vulnerabilities: {
+    critical: number;
+    high: number;
+    medium: number;
+    low: number;
+    informational: number;
+  };
+}
 
 const Projects: React.FC = () => {
   const { theme } = useTheme();
@@ -24,7 +43,7 @@ const Projects: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
-  const [projects] = useState([
+  const [projects] = useState<Project[]>([
     {
       id: 'audit-web-001',
       name: 'Corporate Website Security Audit',
@@ -48,8 +67,9 @@ const Projects: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.state && (location.state as any).filter) {
-      const filter = (location.state as any).filter;
+    const state = location.state as { filter?: string } | null;
+    if (state?.filter) {
+      const filter = state.filter;
       if (['web', 'network', 'mobile', 'cloud'].includes(filter)) {
         setFilterType(filter);
       } else if (['completed', 'in-progress', 'scheduled'].includes(filter)) {
@@ -92,7 +112,7 @@ const Projects: React.FC = () => {
     }
   };
 
-  const filteredProjects = projects.filter(({ name, client, type, status }: any) => {
+  const filteredProjects = projects.filter(({ name, client, type, status }: Project) => {
     const matchesSearch =
       name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       client.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -174,7 +194,7 @@ const Projects: React.FC = () => {
 
           {/* Projects Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProjects.map((project: any) => {
+            {filteredProjects.map((project: Project) => {
               const StatusIcon = getStatusIcon(project.status);
               const ProjectIcon = project.icon;
               const scoreValue = project.score ?? 0;

@@ -101,6 +101,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Clock, X } from 'lucide-react';
+import { ColorKey, VariantType } from '../../types/index';
 
 
 
@@ -115,7 +116,7 @@ interface NotificationCardProps {
     icon: React.ElementType;
   };
   theme: string;
-  getColorClasses: (color: string, variant?: string) => string;
+  getColorClasses: (color: ColorKey, variant?: VariantType) => string;
   onMarkRead: () => void; // ✅ Add these two
   onRemove: () => void;
 }

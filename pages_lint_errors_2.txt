@@ -1,0 +1,10 @@
+﻿
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\ForgotPasswordPage.tsx
+  38:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\OTPVerificationPage.tsx
+  121:33  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  142:33  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+Ô£û 3 problems (3 errors, 0 warnings)
+

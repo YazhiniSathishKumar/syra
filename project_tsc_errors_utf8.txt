@@ -1,0 +1,18 @@
+﻿src/components/Dashboard/AuditDetailsModal.tsx(15,39): error TS2307: Cannot find module '../types/index' or its corresponding type declarations.
+src/components/Dashboard/Header.tsx(866,23): error TS2322: Type '(color: ColorKey, variant?: "text" | "border" | "bg" | undefined) => string' is not assignable to type '(color: string, variant?: string | undefined) => string'.
+  Types of parameters 'color' and 'color' are incompatible.
+    Type 'string' is not assignable to type 'ColorKey'.
+src/components/effects/ParticleBackground.tsx(2,23): error TS2307: Cannot find module 'react-tsparticles' or its corresponding type declarations.
+src/components/effects/ParticleBackground.tsx(3,26): error TS2307: Cannot find module 'tsparticles' or its corresponding type declarations.
+src/components/effects/ParticleBackground.tsx(4,29): error TS2307: Cannot find module 'tsparticles-engine' or its corresponding type declarations.
+src/components/ui/Button.tsx(47,6): error TS2322: Type '{ children: (false | "" | 0 | Element | null | undefined)[]; disabled: boolean; form?: string | undefined; formAction?: string | undefined; formEncType?: string | undefined; formMethod?: string | undefined; ... 269 more ...; whileTap: { ...; } | {}; }' is not assignable to type 'MotionProps'.
+  Types of property 'onAnimationStart' are incompatible.
+    Type 'AnimationEventHandler<HTMLButtonElement> | undefined' is not assignable to type '((definition: AnimationDefinition) => void) | undefined'.
+      Type 'AnimationEventHandler<HTMLButtonElement>' is not assignable to type '(definition: AnimationDefinition) => void'.
+        Types of parameters 'event' and 'definition' are incompatible.
+          Type 'AnimationDefinition' is not assignable to type 'AnimationEvent<HTMLButtonElement>'.
+            Type 'string' is not assignable to type 'AnimationEvent<HTMLButtonElement>'.
+src/pages/Dashboard/Dashboard.tsx(228,29): error TS2322: Type '(color: string, variant?: "text" | "border" | "bg" | undefined) => string' is not assignable to type '(color: string, variant?: string | undefined) => string'.
+  Types of parameters 'variant' and 'variant' are incompatible.
+    Type 'string | undefined' is not assignable to type '"text" | "border" | "bg" | undefined'.
+      Type 'string' is not assignable to type '"text" | "border" | "bg" | undefined'.

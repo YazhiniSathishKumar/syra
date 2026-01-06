@@ -87,7 +87,7 @@ const SettingsContent: React.FC = () => {
     highContrast: false
   });
 
-  const handleSave = (_section: string) => {
+  const handleSave = () => {
     setShowSuccessMessage(true);
     setTimeout(() => setShowSuccessMessage(false), 3000);
   };
@@ -348,7 +348,7 @@ const SettingsContent: React.FC = () => {
                 </div>
 
                 <motion.button
-                  onClick={() => handleSave('profile')}
+                  onClick={() => handleSave()}
                   className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-xl transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -435,7 +435,7 @@ const SettingsContent: React.FC = () => {
                 </div>
 
                 <motion.button
-                  onClick={() => handleSave('security')}
+                  onClick={() => handleSave()}
                   className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white rounded-xl transition-all duration-300 font-medium shadow-lg"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -491,7 +491,7 @@ const SettingsContent: React.FC = () => {
                 </div>
 
                 <motion.button
-                  onClick={() => handleSave('notifications')}
+                  onClick={() => handleSave()}
                   className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-xl transition-all duration-300 font-medium shadow-lg"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -560,7 +560,7 @@ const SettingsContent: React.FC = () => {
                 </div>
 
                 <motion.button
-                  onClick={() => handleSave('api')}
+                  onClick={() => handleSave()}
                   className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white rounded-xl transition-all duration-300 font-medium shadow-lg"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -626,7 +626,7 @@ const SettingsContent: React.FC = () => {
                 </div>
 
                 <motion.button
-                  onClick={() => handleSave('appearance')}
+                  onClick={() => handleSave()}
                   className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-xl transition-all duration-300 font-medium shadow-lg"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}

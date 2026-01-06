@@ -12,7 +12,7 @@ import {
   RefreshCw
 } from 'lucide-react';
 
-import { ColorKey, VariantType } from '../types/index';
+import { ColorKey, VariantType } from '../../types/index';
 // Import AuditRequest type
 import { AuditRequest } from '../../context/WorkflowContext';
 

@@ -4,16 +4,10 @@ import {
   Users,
   FileText,
   CheckCircle,
-  XCircle,
   Clock,
-  AlertTriangle,
-  TrendingUp,
   Shield,
   Search,
-  Filter,
-  MoreVertical,
   Eye,
-  Check,
   X,
   Calendar,
   Mail,
@@ -76,7 +70,7 @@ const AdminDashboardContent: React.FC = () => {
   useEffect(() => {
     const fetchAuditRequests = async () => {
       try {
-        let url = 'companies/pending';
+        const url = 'companies/pending';
 
         // Only add query param if status is not 'all'
         const params = statusFilter !== 'all' ? { status: statusFilter } : {};
@@ -177,7 +171,7 @@ const AdminDashboardContent: React.FC = () => {
   const handleApprove = async () => {
     try {
       if (selectedRequest) {
-        const res = await apiClient.post('companies/verify', {
+        await apiClient.post('companies/verify', {
           companyId: selectedRequest.id,
           action: 'approve',
           notes: ''
@@ -195,7 +189,7 @@ const AdminDashboardContent: React.FC = () => {
   const handleReject = async () => {
     try {
       if (selectedRequest) {
-        const res = await apiClient.post('companies/verify', {
+        await apiClient.post('companies/verify', {
           companyId: selectedRequest.id,
           action: 'reject',
           notes: ''

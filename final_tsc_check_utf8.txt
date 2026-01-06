@@ -1,0 +1,10 @@
+﻿src/components/Dashboard/AuditDetailsModal.tsx(15,39): error TS2307: Cannot find module '../types/index' or its corresponding type declarations.
+src/components/effects/ParticleBackground.tsx(11,20): error TS2345: Argument of type 'import("C:/Users/yazhu/Downloads/scomode-main/scomode-main/node_modules/tsparticles-engine/types/Core/Engine").Engine' is not assignable to parameter of type 'import("C:/Users/yazhu/Downloads/scomode-main/scomode-main/node_modules/@tsparticles/engine/types/Core/Engine").Engine'.
+  Type 'Engine' is missing the following properties from type 'Engine': colorManagers, easingFunctions, effectDrawers, interactors, and 27 more.
+src/components/ui/Button.tsx(47,6): error TS2322: Type '{ children: (false | "" | 0 | Element | null | undefined)[]; disabled: boolean; form?: string | undefined; formAction?: string | undefined; formEncType?: string | undefined; formMethod?: string | undefined; ... 269 more ...; whileTap: { ...; } | {}; }' is not assignable to type 'MotionProps'.
+  Types of property 'onAnimationStart' are incompatible.
+    Type 'AnimationEventHandler<HTMLButtonElement> | undefined' is not assignable to type '((definition: AnimationDefinition) => void) | undefined'.
+      Type 'AnimationEventHandler<HTMLButtonElement>' is not assignable to type '(definition: AnimationDefinition) => void'.
+        Types of parameters 'event' and 'definition' are incompatible.
+          Type 'AnimationDefinition' is not assignable to type 'AnimationEvent<HTMLButtonElement>'.
+            Type 'string' is not assignable to type 'AnimationEvent<HTMLButtonElement>'.

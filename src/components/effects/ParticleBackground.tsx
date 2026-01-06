@@ -1,13 +1,12 @@
 import { useCallback } from 'react';
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-import type { Engine } from "tsparticles-engine";
 import { useTheme } from '../../context/ThemeContext';
 
 const ParticleBackground = () => {
   const { theme } = useTheme();
-  
-  const particlesInit = useCallback(async (engine: Engine) => {
+
+  const particlesInit = useCallback(async (engine: any) => {
     await loadFull(engine);
   }, []);
 

@@ -7,21 +7,14 @@ import {
   FileText
 } from 'lucide-react';
 
-import { ElementType } from 'react';
+import { NotificationItem, StatsCardItem, DocumentItem, QuickActionItem } from '../types/index';
+import { AuditRequest } from '../context/WorkflowContext';
 
-export type NotificationType = 'info' | 'success' | 'warning' | 'error';
+// Re-export or use from types/index.ts
+// export type NotificationType = 'info' | 'success' | 'warning' | 'error';
+// export interface NotificationItem { ... }
 
-export interface NotificationItem {
-  id: number;
-  title: string;
-  description: string;
-  time: string;
-  type: NotificationType;
-  unread: boolean;
-  icon: ElementType;
-}
-
-export const statsData = [
+export const statsData: StatsCardItem[] = [
   {
     label: 'Active Audits',
     value: '0',
@@ -40,13 +33,13 @@ export const statsData = [
   }
 ];
 
-export const recentAuditsData: any[] = [];
+export const recentAuditsData: AuditRequest[] = [];
 
 export const notificationsData: NotificationItem[] = [];
 
-export const quickActionsData = [
+export const quickActionsData: QuickActionItem[] = [
   { label: 'Mobile Check', icon: Smartphone, color: 'secondary', description: 'Mobile app security' },
   { label: 'Report', icon: FileText, color: 'warning', description: 'Generate reports' }
 ];
 
-export const documentsData: any[] = [];
+export const documentsData: DocumentItem[] = [];

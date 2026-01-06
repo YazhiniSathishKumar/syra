@@ -15,7 +15,7 @@ import {
   AlertCircle,
   Globe
 } from 'lucide-react';
-import { AuditRequest } from '../../../context/WorkflowContext';
+import { AuditRequest, Finding } from '../../../context/WorkflowContext';
 
 interface AuditDetailsContentProps {
   audit: AuditRequest;
@@ -164,7 +164,7 @@ const VulnerabilityChart: React.FC<{ vulnerabilities: AuditRequest['vulnerabilit
 };
 
 const RecommendationItem: React.FC<{
-  finding: any;
+  finding: Finding;
   severity: string;
   auditId: string;
   index: number;
@@ -242,7 +242,7 @@ const AuditDetailsContent: React.FC<AuditDetailsContentProps> = ({ audit }) => {
       const e = new Date(end);
       const endStr = `${months[e.getMonth()]} ${e.getDate()}`;
       return `${startStr} - ${endStr}`;
-    } catch (err) {
+    } catch {
       return 'Invalid Date';
     }
   };

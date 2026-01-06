@@ -679,6 +679,7 @@ import {
   HelpCircle,
   LogOut
 } from 'lucide-react';
+import { NotificationItem, ColorKey } from '../../types/index';
 import NotificationCard from './NotificationCard';
 
 interface HeaderProps {
@@ -688,12 +689,12 @@ interface HeaderProps {
   toggleTheme: () => void;
   userDropdownOpen: boolean;
   setUserDropdownOpen: (open: boolean) => void;
-  notifications: any[];
+  notifications: NotificationItem[];
   showNotifications: boolean;
   setShowNotifications: (show: boolean) => void;
   markAsRead: (id: number) => void;
   removeNotification: (id: number) => void;
-  getColorClasses: (color: string, variant?: string) => string;
+  getColorClasses: (color: ColorKey, variant?: 'bg' | 'text' | 'border') => string;
 }
 
 const Header: React.FC<HeaderProps> = ({

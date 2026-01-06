@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Calendar, Download, Eye, FileText, MoreVertical, Pencil, Archive, Trash2 } from 'lucide-react';
-import { ColorKey, VariantType } from '../../types/index';
+import { ColorKey, VariantType, DocumentItem } from '../../types/index';
 
 
 interface DocumentCardProps {
-  doc: any;
+  doc: DocumentItem;
   onPreview: () => void;
   onDownload: () => void;
   theme: string;

@@ -2,20 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Shield,
-  Clock,
   CheckCircle,
   AlertTriangle,
   FileText,
   Play,
   Pause,
-  RotateCcw,
   Search,
-  Filter,
   Calendar,
   Target,
   Activity,
-  TrendingUp,
-  Users,
   Globe,
   Smartphone,
   Server,
@@ -60,7 +55,7 @@ const TestingDashboardContent: React.FC = () => {
 
         const response = await apiClient.get('/tester/projects');
         console.log(response);
-        const normalizedAudits = response.data.map((audit: any) => ({
+        const normalizedAudits = response.data.map((audit: AssignedAudit) => ({
           id: audit.id,
           companyName: audit.companyName || 'Unknown Company',
           auditType: audit.auditType || 'web',

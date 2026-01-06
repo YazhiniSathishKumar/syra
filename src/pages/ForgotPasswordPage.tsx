@@ -33,10 +33,10 @@ const ForgotPasswordPage = () => {
     try {
       await apiClient.post('/auth/forgot-password', { email });
       setIsEmailSent(true);
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message || 'Failed to send reset instructions'
-      );
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to send reset instructions';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

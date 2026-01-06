@@ -2,14 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Globe } from 'lucide-react';
 
+import { ColorKey, VariantType } from '../../types/index';
+import { AuditRequest } from '../../context/WorkflowContext';
+
 interface AuditCardProps {
-  audit: any;
+  audit: AuditRequest;
   onClick: () => void;
   theme: string;
-  getColorClasses: (color: ColorKey, variant: 'bg' | 'text' | 'border') => string;
+  getColorClasses: (color: ColorKey, variant: VariantType) => string;
 }
-
-type ColorKey = 'info' | 'success' | 'warning' | 'error' | 'secondary';
 
 const AuditCard: React.FC<AuditCardProps> = ({
   audit,
@@ -54,19 +55,13 @@ const AuditCard: React.FC<AuditCardProps> = ({
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          {!(audit.auditType === 'web' && (audit.status === 'Approved' || audit.status === 'Completed')) && (
+          {!(audit.auditType === 'web' && (audit.status === 'approved' || audit.status === 'completed')) && (
             <span
-              className={`px-3 py-1 rounded-full text-xs font-medium ${audit.status === 'Completed' || audit.status === 'Approved'
-                ? getColorClasses('success', 'bg') +
-                ' ' +
-                getColorClasses('success', 'text')
-                : audit.status === 'In Progress'
-                  ? getColorClasses('info', 'bg') +
-                  ' ' +
-                  getColorClasses('info', 'text')
-                  : getColorClasses('warning', 'bg') +
-                  ' ' +
-                  getColorClasses('warning', 'text')
+              className={`px-3 py-1 rounded-full text-xs font-medium ${audit.status === 'completed' || audit.status === 'approved'
+                ? `${getColorClasses('success', 'bg')} ${getColorClasses('success', 'text')}`
+                : audit.status === 'in-progress'
+                  ? `${getColorClasses('info', 'bg')} ${getColorClasses('info', 'text')}`
+                  : `${getColorClasses('warning', 'bg')} ${getColorClasses('warning', 'text')}`
                 }`}
             >
               {audit.status}

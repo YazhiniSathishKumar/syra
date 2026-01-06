@@ -1,0 +1,13 @@
+﻿
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\ForgotPasswordPage.tsx
+  36:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\yazhu\Downloads\scomode-main\scomode-main\src\pages\OTPVerificationPage.tsx
+  220:9   error  'location' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  240:14  error  'setId' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  246:17  error  'setEmail' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  332:21  error  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  352:21  error  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+
+Ô£û 6 problems (6 errors, 0 warnings)
+

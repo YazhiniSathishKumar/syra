@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   BarChart3,
   FolderOpen,
@@ -7,11 +8,18 @@ import {
   HelpCircle,
   Shield,
   Users,
-  TestTube
+  TestTube,
+  LogOut as LogOutIcon,
+  Sun,
+  Moon,
+  Bell,
+  User,
+  Menu,
+  X,
+  Search,
+  ChevronDown
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
-import Sidebar from './Sidebar';
-import Header from './Header';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -39,6 +47,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
       }
     }
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('introSeen');
+    navigate('/');
+  };
 
   const showLabels = isHovered || (window.innerWidth < 1024 && sidebarOpen);
   const [notifications, setNotifications] = useState([
@@ -104,6 +119,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
   const navigationItems = getNavigationItems();
   const currentPath = location.pathname;
   const activeItem = navigationItems.find(item => item.path === currentPath)?.id || 'dashboard';
+  const unreadCount = notifications.filter(n => n.unread).length;
 
   const handleNavigation = (id: string) => {
     const item = navigationItems.find(i => i.id === id);
@@ -146,17 +162,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  const getColorClasses = (_color: string, variant: string = 'default') => {
-    const colorMap: Record<string, string> = {
-      default: theme === 'dark' ? 'text-white' : 'text-black',
-      success: 'text-green-500',
-      warning: 'text-yellow-500',
-      error: 'text-red-500'
-    };
-    return colorMap[variant] || colorMap.default;
-  };
-
 
   return (
     <div
@@ -204,8 +209,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
                   <motion.div
                     animate={{
                       opacity: showLabels ? 1 : 0,
-                      width: showLabels ? 'auto' : 0,
-                      marginLeft: showLabels ? 12 : 0
+                      width: showLabels ? 'auto' : '0px',
+                      marginLeft: showLabels ? '12px' : '0px'
                     }}
                     className="whitespace-nowrap overflow-hidden"
                     transition={{ duration: 0.3 }}
@@ -247,7 +252,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
                   return (
                     <motion.button
                       key={item.id}
-                      onClick={() => handleNavigation(item.path)}
+                      onClick={() => handleNavigation(item.id)}
                       className={`w-full flex items-center space-x-3 rounded-xl transition-all duration-200 group ${isActive
                         ? theme === 'dark'
                           ? 'bg-gradient-to-r from-secondary-dark/30 to-accent-dark/30 text-secondary-dark border border-secondary-dark/30 shadow-inner-glow backdrop-blur-sm'
@@ -266,8 +271,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
                       <motion.span
                         animate={{
                           opacity: showLabels ? 1 : 0,
-                          width: showLabels ? 'auto' : 0,
-                          marginLeft: showLabels ? 12 : 0
+                          width: showLabels ? 'auto' : '0px',
+                          marginLeft: showLabels ? '12px' : '0px'
                         }}
                         className="font-medium whitespace-nowrap overflow-hidden"
                         transition={{ duration: 0.3 }}
@@ -309,8 +314,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
                 <motion.div
                   animate={{
                     opacity: showLabels ? 1 : 0,
-                    width: showLabels ? 'auto' : 0,
-                    marginLeft: showLabels ? 12 : 0
+                    width: showLabels ? 'auto' : '0px',
+                    marginLeft: showLabels ? '12px' : '0px'
                   }}
                   className="flex-1 overflow-hidden"
                 >
@@ -564,7 +569,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
                             : 'hover:bg-gray-50'
                             }`}
                         >
-                          <SettingsIcon className="w-4 h-4" />
+                          <Settings className="w-4 h-4" />
                           <span className="text-sm">Settings</span>
                         </button>
                         <button
@@ -574,7 +579,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, userRole = 
                             : 'hover:bg-gray-50'
                             }`}
                         >
-                          <HelpIcon className="w-4 h-4" />
+                          <HelpCircle className="w-4 h-4" />
                           <span className="text-sm">Help</span>
                         </button>
                       </div>

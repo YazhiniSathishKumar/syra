@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 
-type ColorKey = 'info' | 'success' | 'warning' | 'error' | 'secondary';
+import { ColorKey, VariantType } from '../../types/index';
 
 interface StatsCardProps {
   label: string;
@@ -13,7 +13,7 @@ interface StatsCardProps {
   description: string;
   index: number;
   theme: string;
-  getColorClasses: (color: ColorKey, variant: 'bg' | 'text' | 'border') => string;
+  getColorClasses: (color: ColorKey, variant: VariantType) => string;
   onClick?: () => void;
 }
 
