@@ -70,6 +70,10 @@ const Dashboard = () => {
       case 'help':
         navigate('/help');
         break;
+<<<<<<< HEAD
+
+=======
+>>>>>>> a0df907 (Update project files)
       default:
         navigate('/dashboard');
         break;
